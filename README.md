@@ -36,3 +36,4 @@ pip from command line.
 ## Known issues
 
  - Requires pip > 1.0 since output syntax for versions is broken in 1.0
+ - Requires python3
