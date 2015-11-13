@@ -36,17 +36,17 @@ class PackageVersion:
             minor = 0
             if version.prerelease is None:
                 if major == 0:
-                    return "%d.%d" %(major, minor)  # version 0 -> 0.1
-                return "%d.%d.1" %(major, minor) # version 1 -> 1.0.1
-            return "%d" %(major)  # version 1a2 -> 1
+                    return "%d.%d" % (major, minor)  # version 0 -> 0.1
+                return "%d.%d.1" % (major, minor)  # version 1 -> 1.0.1
+            return "%d" % major  # version 1a2 -> 1
 
         if version.patch is None and minor > 0:
             if version.prerelease is None:
-                return "%d.%d.%d" %(major, minor, 1)  # version 1.0 -> 1.0.1
-            return "%d.%d" %(major, minor)  # version 1.0a2 -> 1.0
+                return "%d.%d.%d" % (major, minor, 1)  # version 1.0 -> 1.0.1
+            return "%d.%d" % (major, minor)  # version 1.0a2 -> 1.0
 
         patch = 1 if version.patch is None else version.patch+1
-        return "%d.%d.%d" %(major, minor, patch) # version 1.0.1 -> 1.0.2
+        return "%d.%d.%d" % (major, minor, patch)  # version 1.0.1 -> 1.0.2
 
     def _check_pip_version(self):
         out = subprocess.getoutput('pip --version')
