@@ -1,14 +1,18 @@
 #!/usr/bin/env python
+import os
 from setuptools import setup, find_packages
-try:
-    from packageversion import PackageVersion
-    pv = PackageVersion()
-    v = pv.generate_next_stable(package_name='packageversion')
-except ImportError:
-    v = '1.0.0'
+
+version = os.getenv('PYTHON_PACKAGE_VERSION')
+if version is None:
+    try:
+        from packageversion import PackageVersion
+        pv = PackageVersion()
+        version = pv.generate_next_stable(package_name='packageversion')
+    except ImportError:
+        version = '1.0.0'
 
 setup(name='packageversion',
-      version=v,
+      version=version,
       description='Library to generate python package version for CI',
       author='Jon Skarpeteig',
       author_email='jon.skarpeteig@gmail.com',

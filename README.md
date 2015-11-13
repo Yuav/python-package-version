@@ -14,14 +14,18 @@ pip from command line.
 ## Example usage
 
     #!/usr/bin/env python
+    import os
     from packageversion import PackageVersion
     from setuptools import setup, find_packages
     
-    pv = PackageVersion()
-    v = pv.generate_next_stable(package_name='packageversion')
+    version = os.getenv('PYTHON_PACKAGE_VERSION')
+    if version is None:
+        pv = PackageVersion()
+        version = pv.generate_next_stable(package_name='packageversion')
+    
     
     setup(name='packageversion',
-          version=v,
+          version=version,
           description='Library to generate python package version for CI',
           author='Jon Skarpeteig',
           author_email='jon.skarpeteig@gmail.com',
