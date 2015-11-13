@@ -26,7 +26,7 @@ setup(name='packageversion',
       url='https://github.com/Yuav/python-packageversion',
       packages=find_packages(),
       install_requires=[
-          'semantic_version',
+          'semantic-version',
           'flexmock'
       ]
       )
