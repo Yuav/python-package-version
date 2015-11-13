@@ -24,8 +24,8 @@ pip from command line.
           version=v,
           description='Library to generate python package version for CI',
           author='Jon Skarpeteig',
-          author_email='jskarpet@cisco.com',
-          url='https://gitscm.cisco.com/projects/CTG/repos/itvmworkerapi/browse',
+          author_email='jon.skarpeteig@gmail.com',
+          url='https://github.com/Yuav/python-packageversion',
           packages=find_packages(),
           install_requires=[
               'semantic_version',
