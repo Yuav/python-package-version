@@ -17,7 +17,7 @@ class PackageVersion:
 
     def get_latest(self, package_name):
         version_list = self.get_all(package_name)
-        latest_version = semantic_version.Version('0.0.0-notfound')
+        latest_version = semantic_version.Version('0.0.0-na')
         for v in version_list:
             if not v:
                 continue
