@@ -6,7 +6,7 @@ import re
 class PackageVersion:
 
     def get_all(self, package_name):
-        self._check_python_version()
+        self._check_pip_version()
         out = subprocess.getoutput('pip install ' + package_name + '==invalid')
         m = re.search('from versions: ([^\)]*)\)', out)
         if m is None:
@@ -48,7 +48,7 @@ class PackageVersion:
         patch = 1 if version.patch is None else version.patch+1
         return "%d.%d.%d" %(major, minor, patch) # version 1.0.1 -> 1.0.2
 
-    def _check_python_version(self):
+    def _check_pip_version(self):
         out = subprocess.getoutput('pip --version')
         m = re.match('pip\s+([^\s]+)', out)
         version_text = m.group(1)
