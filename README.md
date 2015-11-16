@@ -18,14 +18,17 @@ pip from command line.
     from packageversion import PackageVersion
     from setuptools import setup, find_packages
     
-    version = os.getenv('PYTHON_PACKAGE_VERSION')
-    if version is None:
-        pv = PackageVersion()
-        version = pv.generate_next_stable(package_name='packageversion')
+    def version():
+        v = os.getenv('PYTHON_PACKAGE_VERSION')
+        if v is None:
+            from packageversion import PackageVersion
+            pv = PackageVersion()
+            v = pv.generate_next_stable(package_name='packageversion')
+        return v
     
     
     setup(name='packageversion',
-          version=version,
+          version=version(),
           description='Library to generate python package version for CI',
           author='Jon Skarpeteig',
           author_email='jon.skarpeteig@gmail.com',
@@ -34,6 +37,9 @@ pip from command line.
           install_requires=[
               'semantic_version',
               'flexmock'
+          ],
+          setup_requires=[
+              'packageversion'
           ]
           )
           
