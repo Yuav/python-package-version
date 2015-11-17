@@ -4,5 +4,5 @@ python:
   - "2.7"
   - "3.2"
   - "3.3"
-install: "pip install semantic-version flexmock"
-script: python -m unittest discover
+install: "pip install nose semantic-version flexmock"
+script: nosetests
