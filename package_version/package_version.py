@@ -7,8 +7,14 @@ class PackageVersion:
 
     def get_all(self, package_name):
         self._check_pip_version()
-        out = subprocess.getoutput('pip install ' + package_name + '==invalid')
-        m = re.search('from versions: ([^\)]*)\)', out)
+        try:
+            out = subprocess.check_output('pip install ' + package_name + '==invalid 2>&1', shell=True)
+        except subprocess.CalledProcessError as e:
+            if e.returncode != 1:
+                raise
+            out = e.output
+
+        m = re.search('from versions: ([^\)]*)\)', str(out))
         if m is None:
             return []
         versions_string = m.group(1)
@@ -49,8 +55,8 @@ class PackageVersion:
         return "%d.%d.%d" % (major, minor, patch)  # version 1.0.1 -> 1.0.2
 
     def _check_pip_version(self):
-        out = subprocess.getoutput('pip --version')
-        m = re.match('pip\s+([^\s]+)', out)
+        out = subprocess.check_output('pip --version', shell=True)
+        m = re.search('pip\s+([^\s]+)', str(out))
         version_text = m.group(1)
         version = semantic_version.Version(version_text)
         if semantic_version.Version('1.0.0') >= version:
