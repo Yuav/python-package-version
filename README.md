@@ -1,5 +1,7 @@
 # Versioning library for generating next stable version number
 
+[![Build Status](https://travis-ci.org/Yuav/python-package-version.svg)](https://travis-ci.org/Yuav/python-package-version)
+
 Doing continuous deployment from a green branch is recommended to do
 using PyPI packages. Creating these packages can be done using
 setuptools, but bumping the version while complying with version
