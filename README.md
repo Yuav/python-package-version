@@ -15,31 +15,31 @@ pip from command line.
 
     #!/usr/bin/env python
     import os
-    from packageversion import PackageVersion
+    from package_version import PackageVersion
     from setuptools import setup, find_packages
     
     def version():
         v = os.getenv('PYTHON_PACKAGE_VERSION')
         if v is None:
-            from packageversion import PackageVersion
+            from package_version import PackageVersion
             pv = PackageVersion()
-            v = pv.generate_next_stable(package_name='packageversion')
+            v = pv.generate_next_stable(package_name='package-version')
         return v
     
     
-    setup(name='packageversion',
+    setup(name='package-version',
           version=version(),
           description='Library to generate python package version for CI',
           author='Jon Skarpeteig',
           author_email='jon.skarpeteig@gmail.com',
-          url='https://github.com/Yuav/python-packageversion',
+          url='https://github.com/Yuav/python-package-version',
           packages=find_packages(),
           install_requires=[
               'semantic_version',
               'flexmock'
           ],
           setup_requires=[
-              'packageversion'
+              'package_version'
           ]
           )
           

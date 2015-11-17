@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 def version():
     v = os.getenv('PYTHON_PACKAGE_VERSION')
     if v is None:
-        from packageversion import PackageVersion
+        from package_version import PackageVersion
         pv = PackageVersion()
         v = pv.generate_next_stable(package_name='package-version')
     return v
@@ -26,10 +26,10 @@ setup(name='package-version',
       url='https://github.com/Yuav/python-package-version',
       packages=find_packages(),
       install_requires=[
-          'semantic-version',
+          'semantic_version',
           'flexmock'
       ],
       setup_requires=[
-          'package-version'
+          'package_version'
       ]
       )

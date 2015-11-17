@@ -1,7 +1,7 @@
 import unittest
 import subprocess
 import semantic_version
-from packageversion import PackageVersion
+from package_version import PackageVersion
 from flexmock import flexmock
 
 
