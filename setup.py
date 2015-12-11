@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import os
 from setuptools import setup, find_packages
 
 
 def version():
+    import os
     v = os.getenv('PYTHON_PACKAGE_VERSION')
     if v is None:
         from package_version import PackageVersion
