@@ -1,6 +1,4 @@
 import subprocess
-from future import standard_library
-standard_library.install_aliases()
 import semantic_version
 import re
 
@@ -10,7 +8,7 @@ class PackageVersion:
     def get_all(self, package_name):
         self._check_pip_version()
         try:
-            out = subprocess.getoutput('pip install ' + package_name + '==invalid')
+            out = self._run_shell_command('pip install ' + package_name + '==invalid')
         except subprocess.CalledProcessError as e:
             if e.returncode != 1:
                 raise
@@ -57,9 +55,19 @@ class PackageVersion:
         return "%d.%d.%d" % (major, minor, patch)  # version 1.0.1 -> 1.0.2
 
     def _check_pip_version(self):
-        out = subprocess.getoutput('pip --version')
+        out = self._run_shell_command('pip --version')
         m = re.search('pip\s+([^\s]+)', str(out))
         version_text = m.group(1)
         version = semantic_version.Version(version_text)
         if semantic_version.Version('1.0.0') >= version:
             raise RuntimeError('Only pip versions larger than 1.0.0 is supported')
+
+    def _run_shell_command(self, command):
+        process = subprocess.Popen(
+            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+        output = process.communicate()[0]
+
+        if process.returncode:
+            raise subprocess.CalledProcessError(process.returncode, command, output)
+
+        return output

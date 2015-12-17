@@ -32,5 +32,8 @@ setup(name='package-version',
       ],
       setup_requires=[
           'package_version'
+      ],
+      tests_require = [
+          'future'
       ]
       )
