@@ -20,14 +20,18 @@ pip from command line.
     from package_version import PackageVersion
     from setuptools import setup, find_packages
     
+    
     def version():
+        import os
         v = os.getenv('PYTHON_PACKAGE_VERSION')
         if v is None:
-            from package_version import PackageVersion
-            pv = PackageVersion()
-            v = pv.generate_next_stable(package_name='package-version')
+            try:
+                from package_version import PackageVersion
+                pv = PackageVersion()
+                v = pv.generate_next_stable(package_name='package-version')
+            except ImportError:
+                v = '1.0.0'
         return v
-    
     
     setup(name='package-version',
           version=version(),
